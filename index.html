@@ -2,21 +2,54 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>testbord</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トップページ - 2ちゃんねる風掲示板</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="main.php" method="post">
-        <div>
-            <label for="name">名前</label>
-            <input type="text" id="name" name="name">
-        </div>
-        <div>
-            <label for="message">内容</label>
-            <input type="text" id="message" name="message">
-        </div>
-        <input type="submit" name="send" value="送信する">
-    </form>
-    <h2>表示欄</h2>
-    <div></div>
+    <div class="container">
+        <header class="site-header">
+            <h1 class="site-title">2ちゃんねる風掲示板</h1>
+            <nav class="site-nav">
+                <a href="index.php" class="nav-link active">トップページ</a>
+                <a href="#" class="nav-link">ヘルプ</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section class="new-thread-section">
+                <h2 class="section-title">新規スレッド作成</h2>
+                <form action="create_thread.php" method="POST" class="thread-form">
+                    <div class="form-group">
+                        <label for="thread-title" class="form-label">スレッドタイトル</label>
+                        <input type="text" id="thread-title" name="title" class="form-input" 
+                               required maxlength="255" placeholder="スレッドのタイトルを入力">
+                    </div>
+                    <div class="form-group">
+                        <label for="first-post" class="form-label">最初の投稿内容</label>
+                        <textarea id="first-post" name="content" class="form-textarea" 
+                                  required placeholder="投稿内容を入力"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="author-name" class="form-label">名前</label>
+                        <input type="text" id="author-name" name="name" class="form-input" 
+                               value="名無しさん" placeholder="名前を入力">
+                    </div>
+                    <button type="submit" class="submit-button">スレッドを作成</button>
+                </form>
+            </section>
+
+            <section class="thread-list-section">
+                <h2 class="section-title">スレッド一覧</h2>
+                <div class="thread-list">
+                    <!-- ここにPHPでスレッド一覧が表示されます -->
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>&copy; 2025 2ちゃんねる風掲示板</p>
+        </footer>
+    </div>
 </body>
 </html>
