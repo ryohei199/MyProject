@@ -1,0 +1,16 @@
+-- URL情報を格納するテーブル
+CREATE TABLE urls (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- コメント情報を格納するテーブル
+CREATE TABLE comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url_id INT NOT NULL,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (url_id) REFERENCES urls(id) ON DELETE CASCADE
+);
