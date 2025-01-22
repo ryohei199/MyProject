@@ -1,0 +1,12 @@
+body {
+    font-family: "MS PGothic", sans-serif;
+    background-color: #eef2f5;
+}
+h1 {
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+.comments p {
+    border-bottom: 1px dotted #ccc;
+    padding-bottom: 5px;
+}
