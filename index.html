@@ -3,53 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>トップページ - 2ちゃんねる風掲示板</title>
-    <link rel="stylesheet" href="style.css">
+    <title>URL掲示板サイト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #000;
+        }
+        .form-container, .url-list {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+        .url-list a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .url-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header class="site-header">
-            <h1 class="site-title">2ちゃんねる風掲示板</h1>
-            <nav class="site-nav">
-                <a href="index.php" class="nav-link active">トップページ</a>
-                <a href="#" class="nav-link">ヘルプ</a>
-            </nav>
-        </header>
+    <h1>動画編集URL掲示板</h1>
 
-        <main class="main-content">
-            <section class="new-thread-section">
-                <h2 class="section-title">新規スレッド作成</h2>
-                <form action="create_thread.php" method="POST" class="thread-form">
-                    <div class="form-group">
-                        <label for="thread-title" class="form-label">スレッドタイトル</label>
-                        <input type="text" id="thread-title" name="title" class="form-input" 
-                               required maxlength="255" placeholder="スレッドのタイトルを入力">
-                    </div>
-                    <div class="form-group">
-                        <label for="first-post" class="form-label">最初の投稿内容</label>
-                        <textarea id="first-post" name="content" class="form-textarea" 
-                                  required placeholder="投稿内容を入力"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="author-name" class="form-label">名前</label>
-                        <input type="text" id="author-name" name="name" class="form-input" 
-                               value="名無しさん" placeholder="名前を入力">
-                    </div>
-                    <button type="submit" class="submit-button">スレッドを作成</button>
-                </form>
-            </section>
+    <div class="form-container">
+        <form action="submit_url.php" method="POST">
+            <label for="url">URLを入力してください:</label><br>
+            <input type="url" id="url" name="url" required><br>
+            <label for="title">タイトル:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
+            <button type="submit">投稿</button>
+        </form>
+    </div>
 
-            <section class="thread-list-section">
-                <h2 class="section-title">スレッド一覧</h2>
-                <div class="thread-list">
-                    <!-- ここにPHPでスレッド一覧が表示されます -->
-                </div>
-            </section>
-        </main>
-
-        <footer class="site-footer">
-            <p>&copy; 2025 2ちゃんねる風掲示板</p>
-        </footer>
+    <div class="url-list">
+        <h2>投稿されたURL</h2>
+        <?php
+        // データベースから投稿を取得
+        $pdo = new PDO('mysql:host=localhost;dbname=掲示板', 'ユーザー名', 'パスワード');
+        $stmt = $pdo->query('SELECT * FROM urls ORDER BY created_at DESC');
+        while ($row = $stmt->fetch()) {
+            echo '<p><a href="board.php?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</a> (' . htmlspecialchars($row['url']) . ')</p>';
+        }
+        ?>
     </div>
 </body>
 </html>
