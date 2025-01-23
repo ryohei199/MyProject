@@ -3,55 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL掲示板サイト</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
-        h1 {
-            color: #000;
-        }
-        .form-container, .url-list {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background: #fff;
-        }
-        .url-list a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .url-list a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>動画編集URL掲示板</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>動画編集URL掲示板</h1>
+    <div class="container py-4">
+        <h1 class="mb-4">動画編集URL掲示板</h1>
 
-    <div class="form-container">
-        <form action="submit_url.php" method="POST">
-            <label for="url">URLを入力してください:</label><br>
-            <input type="url" id="url" name="url" required><br>
-            <label for="title">タイトル:</label><br>
-            <input type="text" id="title" name="title" required><br><br>
-            <button type="submit">投稿</button>
-        </form>
-    </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5 mb-3">新規投稿</h2>
+                <form action="submit_url.php" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL:</label>
+                        <input type="url" class="form-control" id="url" name="url" required>
+                        <div class="invalid-feedback">有効なURLを入力してください。</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">タイトル:</label>
+                        <input type="text" class="form-control" id="title" name="title" required>
+                        <div class="invalid-feedback">タイトルを入力してください。</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">投稿</button>
+                </form>
+            </div>
+        </div>
 
-    <div class="url-list">
-        <h2>投稿されたURL</h2>
-        <?php
-        // データベースから投稿を取得
-        $pdo = new PDO('mysql:host=localhost;dbname=掲示板', 'ユーザー名', 'パスワード');
-        $stmt = $pdo->query('SELECT * FROM urls ORDER BY created_at DESC');
-        while ($row = $stmt->fetch()) {
-            echo '<p><a href="board.php?id=' . $row['id'] . '">' . htmlspecialchars($row['title']) . '</a> (' . htmlspecialchars($row['url']) . ')</p>';
-        }
-        ?>
+        <div class="text-center">
+            <a href="list.php" class="btn btn-secondary">投稿一覧を見る</a>
+        </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="validation.js"></script>
 </body>
 </html>
