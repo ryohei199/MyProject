@@ -1,8 +1,8 @@
 <?php
 define('DB_HOST', 'localhost');
 define('DB_NAME', '掲示板');
-define('DB_USER', 'ユーザー名');
-define('DB_PASS', 'パスワード');
+define('DB_USER', 'root');
+define('DB_PASS', '');
 
 function connectDB() {
     try {
