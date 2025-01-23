@@ -1,11 +1,28 @@
 <?php
-return [
-    'DB_HOST' => 'localhost',
-    'DB_NAME' => 'bulletin_board',
-    'DB_USER' => 'root',
-    'DB_PASS' => '',
-    'DB_PORT' => '3306',
-    'SITE_NAME' => '2ちゃんねる風掲示板',
-    'MAX_THREAD_RESPONSES' => 1000,
-    'RESPONSES_PER_PAGE' => 50,
-];
+define('DB_HOST', 'localhost');
+define('DB_NAME', '掲示板');
+define('DB_USER', 'ユーザー名');
+define('DB_PASS', 'パスワード');
+
+function connectDB() {
+    try {
+        $pdo = new PDO(
+            'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4',
+            DB_USER,
+            DB_PASS,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES => false,
+            ]
+        );
+        return $pdo;
+    } catch (PDOException $e) {
+        die('接続エラー: ' . $e->getMessage());
+    }
+}
+
+function h($str) {
+    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
+}
+?>
